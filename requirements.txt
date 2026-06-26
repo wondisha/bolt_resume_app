@@ -1,0 +1,26 @@
+# Streamlit Cloud Requirements
+# These packages work in Streamlit Cloud's sandboxed environment
+
+# Core
+python-dotenv>=1.0.0
+requests>=2.31.0
+pypdf>=4.0.0
+
+# LLM Providers (choose one or more based on your setup)
+langchain-google-genai>=2.0.0
+langchain-openai>=0.2.0
+langchain-anthropic>=0.2.0
+
+# Web Framework
+streamlit>=1.32.0
+fastapi>=0.110.0
+uvicorn>=0.27.0
+pydantic>=2.0.0
+
+# Database
+supabase>=2.3.0
+
+# NOTE: browser-use is NOT included for cloud deployment
+# It requires a local Chrome/Edge browser which is not available in Streamlit Cloud
+# For local development with browser automation, install:
+# pip install browser-use>=0.1.0

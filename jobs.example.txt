@@ -1,0 +1,23 @@
+# =============================================================================
+# Job URLs Example File
+# =============================================================================
+# This file format is used with --job-urls-file to process multiple jobs in batch
+# Each line should contain one job posting URL
+# Lines starting with # are comments and will be ignored
+# Blank lines are also ignored
+# =============================================================================
+
+# LinkedIn Job Postings
+https://www.linkedin.com/jobs/view/senior-data-engineer-at-hcltech-4414046431
+https://www.linkedin.com/jobs/view/data-engineer-remote-at-company-name-1234567890
+
+# Greenhouse Job Postings
+https://boards.greenhouse.io/company/jobs/12345
+
+# Lever Job Postings
+https://jobs.lever.co/company/1234-abcde
+
+# =============================================================================
+# Usage:
+# python apply_agent.py --job-urls-file jobs.txt --resume wondi.pdf
+# =============================================================================
