@@ -24,6 +24,46 @@ from config import (
     get_preferred_role_keywords,
 )
 
+def build_ranked_job_preview(job_urls: list[str], resume_path: Path) -> dict:
+    """Build ranked job preview with eligibility info."""
+    from config import require_verified_company
+    
+    resume_text = extract_resume_text(resume_path) if resume_path else ""
+    candidate_profile = get_candidate_profile()
+    ranked_jobs = []
+    selected_jobs = []
+
+    for url in job_urls[:25]:
+        try:
+            job_context = fetch_job_posting_context(url)
+            verified, verification_source = classify_company_verification(job_context)
+            job_context["verified"] = verified
+            job_context["verification_source"] = verification_source
+
+            score, reasons = score_job_context(job_context, resume_text, candidate_profile)
+            eligible = verified or not require_verified_company()
+
+            ranked_jobs.append({
+                "url": url,
+                "job_context": job_context,
+                "score": score,
+                "reasons": reasons,
+                "eligible": eligible,
+            })
+
+            if eligible:
+                selected_jobs.append(url)
+        except Exception:
+            ranked_jobs.append({
+                "url": url,
+                "job_context": {"company_name": "Unknown", "job_title": "Unknown"},
+                "score": 0,
+                "reasons": ["Failed to fetch job context"],
+                "eligible": False,
+            })
+
+    ranked_jobs.sort(key=lambda item: item["score"], reverse=True)
+    return {"ranked_jobs": ranked_jobs, "selected_jobs": selected_jobs}
 
 # =============================================================================
 # HTML Processing
