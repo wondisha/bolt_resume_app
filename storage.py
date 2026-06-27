@@ -18,7 +18,8 @@ from config import (
 
 # Try to import Supabase, fall back to SQLite if not available
 try:
-    from supabase import create_client, Client
+    from __future__ import
+    #from supabase import create_client, Client
     SUPABASE_AVAILABLE = True
 except ImportError:
     SUPABASE_AVAILABLE = False
